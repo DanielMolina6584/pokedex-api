@@ -18,17 +18,14 @@ export function normalizeQuery(nameOrId) {
   return String(nameOrId ?? '').trim().toLowerCase();
 }
 
-// Concept: async/await — the function pauses at each await until the promise resolves
 async function request(path, query) {
   let response;
   try {
-    // Concept: fetch — sends the HTTP GET request and returns a promise with the response
     response = await fetch(`${BASE_URL}${path}`);
   } catch {
     throw new NetworkError();
   }
 
-  // Concept: response.ok — must be checked before parsing; a 404 body is plain text, not JSON
   if (response.status === 404) {
     throw new PokemonNotFoundError(query);
   }
@@ -36,7 +33,6 @@ async function request(path, query) {
     throw new Error(`La PokéAPI respondió con un error (${response.status}).`);
   }
 
-  // Concept: response.json() — also returns a promise, so it needs await too
   return await response.json();
 }
 

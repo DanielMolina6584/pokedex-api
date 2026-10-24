@@ -10,12 +10,9 @@ La sección "Navigation & Routing" de `AGENTS.md` (generado por la plantilla) NO
 - Instalar dependencias siempre con `npx expo install <paquete>`.
 
 ## Reglas del proyecto
-1. **Idioma:** el código va en inglés (variables, funciones, comentarios técnicos); los textos visibles de la interfaz van en español.
-2. **Conceptos de clase:** cada concepto visto en clase (useState, useEffect, FlatList, fetch, async/await, etc.) debe marcarse con un comentario breve donde se use. Ejemplo: `// Concept: useState — stores the list of pokemon`. No agregar otros comentarios innecesarios.
+1. **Idioma:** el código va en inglés (variables, funciones, archivos); los comentarios y los textos visibles de la interfaz van en español.
+2. **Conceptos de clase:** cada concepto visto en clase (useState, useEffect, FlatList, fetch, async/await, etc.) debe marcarse con un comentario breve donde se use. Ejemplo: `// Concepto: useState — guarda la lista de pokémon`. No agregar otros comentarios innecesarios.
 3. **Separación de responsabilidades:** las llamadas a la API no se mezclan con los estilos ni con el JSX de los componentes (van en su propio módulo, `src/services/`).
-4. **Commits:** trabajamos en pareja; cada commit debe ser pequeño y con un mensaje claro en español, sin prefijos tipo `chore:`/`feat:` (ej. `Inicializacion del proyecto`).
-   - Los commits NO llevan `Co-Authored-By` ni ninguna mención a Claude; solo aparece el autor configurado en git.
-   - Hacer exactamente los commits que se pidan (si se pide un commit, es uno solo).
 
 ## Bitácora de preguntas (BITACORA.md)
 - Al terminar de responder cada pregunta o petición, agregar automáticamente una entrada al final de `BITACORA.md`, numerada de forma consecutiva:

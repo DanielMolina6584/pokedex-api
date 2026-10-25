@@ -28,11 +28,10 @@ export default function PokemonCard({ pokemon, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
+    flex: 1,
     alignItems: 'center',
     padding: 12,
-    marginHorizontal: 16,
-    marginVertical: 6,
+    margin: 6,
     borderRadius: 14,
     backgroundColor: '#ffffff',
     borderWidth: 1,
@@ -46,14 +45,15 @@ const styles = StyleSheet.create({
     height: IMAGE_SIZE,
   },
   info: {
-    marginLeft: 16,
+    alignItems: 'center',
+    marginTop: 8,
   },
   number: {
     fontSize: 14,
     color: '#6b7280',
   },
   name: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#111827',
   },

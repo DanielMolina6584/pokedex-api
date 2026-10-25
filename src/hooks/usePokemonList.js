@@ -6,7 +6,7 @@ const PAGE_SIZE = 20;
 
 export default function usePokemonList() {
   const [pokemons, setPokemons] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
 

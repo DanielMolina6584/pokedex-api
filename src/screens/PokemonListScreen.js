@@ -1,14 +1,32 @@
+import { useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EmptyState from '../components/EmptyState';
 import ErrorState from '../components/ErrorState';
 import LoadingState from '../components/LoadingState';
 import PokemonCard from '../components/PokemonCard';
+import SearchBar from '../components/SearchBar';
 import usePokemonList from '../hooks/usePokemonList';
+import usePokemonSearch from '../hooks/usePokemonSearch';
 
-export default function PokemonListScreen() {
+export default function PokemonListScreen({ onSelectPokemon }) {
   const { pokemons, loading, error, loadMore, retry } = usePokemonList();
   const isFirstLoad = pokemons.length === 0;
+
+  // Concepto: useState — guarda el texto que el usuario escribe en la búsqueda
+  const [searchText, setSearchText] = useState('');
+  const { searching, notFoundQuery, error: searchError, search, clearSearch } = usePokemonSearch(onSelectPokemon);
+
+  const handleChangeText = (text) => {
+    setSearchText(text);
+    if (text.trim() === '') {
+      clearSearch();
+    }
+  };
+
+  const handleSearch = () => {
+    search(searchText);
+  };
 
   const renderFooter = () => {
     if (error) {
@@ -21,6 +39,15 @@ export default function PokemonListScreen() {
   };
 
   const renderContent = () => {
+    if (searching) {
+      return <LoadingState message="Buscando Pokémon..." />;
+    }
+    if (notFoundQuery) {
+      return <EmptyState message={`No existe ningún Pokémon con el nombre o número "${notFoundQuery}".`} />;
+    }
+    if (searchError) {
+      return <ErrorState title="No pudimos hacer la búsqueda" message={searchError.message} onRetry={handleSearch} />;
+    }
     if (isFirstLoad && loading) {
       return <LoadingState />;
     }
@@ -32,7 +59,7 @@ export default function PokemonListScreen() {
         data={pokemons}
         keyExtractor={(item) => String(item.id)}
         numColumns={2}
-        renderItem={({ item }) => <PokemonCard pokemon={item} />}
+        renderItem={({ item }) => <PokemonCard pokemon={item} onPress={() => onSelectPokemon(item.id)} />}
         columnWrapperStyle={styles.row}
         contentContainerStyle={[styles.listContent, isFirstLoad && styles.emptyContent]}
         onEndReached={loadMore}
@@ -48,6 +75,7 @@ export default function PokemonListScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>PokéDex Explorer</Text>
       </View>
+      <SearchBar value={searchText} onChangeText={handleChangeText} onSubmit={handleSearch} />
       <View style={styles.body}>{renderContent()}</View>
     </SafeAreaView>
   );

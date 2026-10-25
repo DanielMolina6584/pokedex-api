@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function ErrorState({ message, onRetry, compact = false }) {
+export default function ErrorState({ title = 'No pudimos cargar los Pokémon', message, onRetry, compact = false }) {
   return (
     <View style={[styles.container, compact && styles.compact]}>
-      <Text style={styles.title}>No pudimos cargar los Pokémon</Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message ?? 'Ocurrió un error inesperado. Intenta de nuevo.'}</Text>
       <Pressable
         onPress={onRetry}

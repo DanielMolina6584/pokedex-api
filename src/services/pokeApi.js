@@ -15,7 +15,9 @@ export class NetworkError extends Error {
 }
 
 export function normalizeQuery(nameOrId) {
-  return String(nameOrId ?? '').trim().toLowerCase();
+  const query = String(nameOrId ?? '').trim().toLowerCase().replace(/^#/, '');
+  // Los números se envían sin ceros a la izquierda: la PokéAPI responde 404 con "025" y 200 con "25"
+  return /^\d+$/.test(query) ? String(Number(query)) : query;
 }
 
 async function request(path, query) {

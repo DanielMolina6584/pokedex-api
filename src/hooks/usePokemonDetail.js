@@ -27,6 +27,8 @@ export default function usePokemonDetail(nameOrId) {
             name: data.name,
             height: data.height,
             weight: data.weight,
+            types: data.types.map((item) => item.type.name),
+            stats: data.stats.map((item) => ({ name: item.stat.name, value: item.base_stat })),
             imageUrl: data.sprites?.other?.['official-artwork']?.front_default ?? getOfficialArtworkUrl(data.id),
           });
         }

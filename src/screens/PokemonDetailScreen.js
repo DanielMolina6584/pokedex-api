@@ -2,8 +2,10 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ErrorState from '../components/ErrorState';
 import LoadingState from '../components/LoadingState';
+import StatBar from '../components/StatBar';
+import TypeBadge from '../components/TypeBadge';
 import usePokemonDetail from '../hooks/usePokemonDetail';
-import { capitalize, formatHeight, formatPokemonNumber, formatWeight } from '../utils/formatters';
+import { capitalize, formatHeight, formatPokemonNumber, formatWeight, getStatLabel } from '../utils/formatters';
 
 const IMAGE_SIZE = 240;
 
@@ -23,6 +25,12 @@ export default function PokemonDetailScreen({ nameOrId, onBack }) {
         <Image source={{ uri: pokemon.imageUrl }} style={styles.image} resizeMode="contain" />
         <Text style={styles.number}>{formatPokemonNumber(pokemon.id)}</Text>
         <Text style={styles.name}>{capitalize(pokemon.name)}</Text>
+        {/* Concepto: map — un distintivo por cada tipo, con key única */}
+        <View style={styles.types}>
+          {pokemon.types.map((type) => (
+            <TypeBadge key={type} type={type} />
+          ))}
+        </View>
         <View style={styles.stats}>
           <View style={styles.stat}>
             <Text style={styles.statValue}>{formatHeight(pokemon.height)}</Text>
@@ -32,6 +40,12 @@ export default function PokemonDetailScreen({ nameOrId, onBack }) {
             <Text style={styles.statValue}>{formatWeight(pokemon.weight)}</Text>
             <Text style={styles.statLabel}>Peso</Text>
           </View>
+        </View>
+        <View style={styles.statsCard}>
+          <Text style={styles.sectionTitle}>Estadísticas base</Text>
+          {pokemon.stats.map((stat) => (
+            <StatBar key={stat.name} label={getStatLabel(stat.name)} value={stat.value} />
+          ))}
         </View>
       </ScrollView>
     );
@@ -96,6 +110,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#111827',
   },
+  types: {
+    flexDirection: 'row',
+    marginTop: 12,
+    gap: 8,
+  },
   stats: {
     flexDirection: 'row',
     marginTop: 24,
@@ -120,5 +139,20 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 14,
     color: '#6b7280',
+  },
+  statsCard: {
+    alignSelf: 'stretch',
+    marginTop: 24,
+    padding: 16,
+    borderRadius: 14,
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  sectionTitle: {
+    marginBottom: 8,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#111827',
   },
 });

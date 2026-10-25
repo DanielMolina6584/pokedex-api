@@ -1,3 +1,5 @@
+import { STAT_LABELS, TYPE_LABELS } from '../constants/labels';
+
 export function formatPokemonNumber(id) {
   return `#${String(id).padStart(3, '0')}`;
 }
@@ -13,4 +15,12 @@ export function formatHeight(decimeters) {
 
 export function formatWeight(hectograms) {
   return `${(hectograms / 10).toFixed(1)} kg`;
+}
+
+export function getTypeLabel(type) {
+  return TYPE_LABELS[type] ?? capitalize(type);
+}
+
+export function getStatLabel(stat) {
+  return STAT_LABELS[stat] ?? capitalize(stat);
 }

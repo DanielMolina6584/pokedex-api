@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 export default function LoadingState({ message = 'Cargando Pokémon...', compact = false }) {
   return (
     <View style={[styles.container, compact && styles.compact]}>
+      {/* Concepto: ActivityIndicator — indicador de carga nativo */}
       <ActivityIndicator size="large" color="#dc2626" />
       <Text style={styles.message}>{message}</Text>
     </View>

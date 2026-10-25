@@ -5,15 +5,19 @@ import { getIdFromUrl, getOfficialArtworkUrl } from '../utils/pokemonUrls';
 const PAGE_SIZE = 20;
 
 export default function usePokemonList() {
+  // Concepto: useState — guarda la lista, si está cargando, el error y si quedan más páginas
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
 
+  // Concepto: useRef — guarda valores que no deben volver a pintar la pantalla al cambiar
   const nextOffsetRef = useRef(0);
   const isFetchingRef = useRef(false);
   const isMountedRef = useRef(true);
 
+  // Concepto: useCallback — mantiene la misma función entre renders para usarla en useEffect
+  // Concepto: async/await — espera la página del servicio antes de agregarla a la lista
   const loadPage = useCallback(async () => {
     if (isFetchingRef.current) {
       return;
@@ -46,6 +50,7 @@ export default function usePokemonList() {
     }
   }, []);
 
+  // Concepto: useEffect — carga la primera página al montarse
   // Dependencias: solo loadPage, que nunca cambia porque su useCallback tiene [].
   // Así el efecto corre una sola vez al montarse. Si pokemons, loading o error estuvieran aquí,
   // cada setState dentro de loadPage volvería a ejecutar el efecto y pediría datos sin parar.

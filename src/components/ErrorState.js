@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+// Concepto: props — el título, el mensaje y la acción de reintentar llegan desde quien lo usa
 export default function ErrorState({ title = 'No pudimos cargar los Pokémon', message, onRetry, compact = false }) {
   return (
     <View style={[styles.container, compact && styles.compact]}>

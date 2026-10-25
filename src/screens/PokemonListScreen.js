@@ -54,6 +54,8 @@ export default function PokemonListScreen({ onSelectPokemon }) {
     if (isFirstLoad && error) {
       return <ErrorState message={error.message} onRetry={retry} />;
     }
+    // Concepto: FlatList — pinta solo las tarjetas visibles; numColumns arma 2 columnas y keyExtractor da una key única
+    // Concepto: scroll infinito — onEndReached pide la siguiente página al acercarse al final
     return (
       <FlatList
         data={pokemons}
@@ -70,6 +72,7 @@ export default function PokemonListScreen({ onSelectPokemon }) {
     );
   };
 
+  // Concepto: SafeAreaView — evita que el contenido quede debajo de la barra de estado o el notch
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
@@ -81,6 +84,7 @@ export default function PokemonListScreen({ onSelectPokemon }) {
   );
 }
 
+// Concepto: StyleSheet — define los estilos fuera del JSX
 const styles = StyleSheet.create({
   container: {
     flex: 1,

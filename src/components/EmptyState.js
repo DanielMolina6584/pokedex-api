@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
+// Concepto: props con valor por defecto — el mensaje se puede cambiar según el caso
 export default function EmptyState({ message = 'No se encontraron Pokémon.' }) {
   return (
     <View style={styles.container}>
